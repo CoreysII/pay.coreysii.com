@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Payment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        .form-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .form-container input,
+        .form-container textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-container button {
+            background: #0185F8;
+            color: #FFF;
+            font-size: 15px;
+            text-decoration: none;
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .form-container button:hover {
+            background: #005bb5;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Bill Payment</h1>
+        <form id="contactForm" action="https://formspree.io/f/mannvnvk" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+            
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="order_details">Order Details:</label>
+            <textarea id="order_details" name="order_details" required></textarea>
+            
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+            
+            <button type="submit">MAKE PAYMENT</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            fetch(form.action, {
+                method: form.method,
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Redirect to the payment link after successful form submission
+                    window.location.href = "https://pymntlink.com/payment-link?token=ZjdlZjY3NWUwNjcxOGUyMTdkMDgyODFkMWVjYzVmMmE6ZTk5M2RjZWVhYjA2NjZjNWY0OGQ2ZjQxZDM3Mjk4MTI0NTE1ZmQ0Y2YwNTk1MjcwNGIzOTA3NDI0YjE4MzFjMjQ1ZTg2ZGQxNzk5NTNmY2VmMTAzMjkzNWNmZjJkOWNhNGU3NTU5YmY1YTIzYjZiNzE0ZTRmMGUyYmMxZTNmMGE4OTc0MGYxMWQ3MDA5ODYwMDI0NjVkYzg3ODNmMWRlNDU5MmIzOTIwMjA0MTg4MjJiNjJmYWJkOGE2ZTAzYTYwMGI5ZGZmZjM3ZDZmMzUzMjQ2YTc3NWNkZGYyZWE0YmRjOTU0MTdmZDkyYmQzYjA3YWJmYzFjN2UyMmU3N2IwNDcxNzU3NzM5YmI5ZTk5ODhkYTEyM2VlODUxMjA2NTgwMTQzZWEyZWMwZjAzZTFhN2RmNjllMmY1Y2QzOWE3NGQzOTE3NmZhN2RmMDZiZGM3OTBlNGQyNDQwM2M0NGVlYWM0YTRlZGJhZjY5ZDdkZWYyNmE4OWVjNmE0YTYxOGM1";
+                } else {
+                    alert('There was a problem with the form submission. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was a problem with the form submission. Please try again.');
+            });
+        });
+    </script>
+</body>
+</html>
